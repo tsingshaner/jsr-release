@@ -9,6 +9,7 @@
     "url": "https://github.com/Jon-a-than"
   },
   "license": "ISC",
+  "keywords": ["jsr", "publish", "registry", "pnpm"],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
