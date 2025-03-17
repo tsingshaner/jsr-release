@@ -9,12 +9,7 @@
     "url": "https://github.com/Jon-a-than"
   },
   "license": "ISC",
-  "keywords": [
-    "jsr",
-    "publish",
-    "registry",
-    "pnpm"
-  ],
+  "keywords": ["jsr", "publish", "registry", "pnpm"],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -27,9 +22,7 @@
   "bin": {
     "jsr-release": "./bin/cli.mjs"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=10.0.0"
@@ -76,11 +69,7 @@
     "vitest": "^3.0.8"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "esbuild",
-      "simple-git-hooks"
-    ],
+    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild", "simple-git-hooks"],
     "overrides": {
       "vite-plugin-dts>@microsoft/api-extractor": "^7.51.1"
     }
