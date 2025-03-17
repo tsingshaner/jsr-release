@@ -45,5 +45,6 @@
   },
   "[html]": {
     "editor.formatOnSave": false
-  }
+  },
+  "commentTranslate.browse.mode": "inplace"
 }

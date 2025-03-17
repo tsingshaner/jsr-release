@@ -1,9 +1,9 @@
 {
-  "name": "template",
+  "name": "@qingshaner/jsr-release",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@10.6.2",
-  "description": "a lib template for typescript",
+  "description": "Publish your package to JSR registry.",
   "author": {
     "name": "qingshaner",
     "url": "https://github.com/Jon-a-than"
@@ -18,7 +18,12 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "bin": {
+    "jsr-release": "./bin/cli.mjs"
+  },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=10.0.0"
@@ -37,6 +42,19 @@
     "test": "vitest run",
     "test:cov": "vitest run --coverage"
   },
+  "dependencies": {
+    "@pnpm/exportable-manifest": "^1000.0.8",
+    "@pnpm/fs.find-packages": "^1000.0.7",
+    "@pnpm/workspace.find-packages": "^1000.0.15",
+    "@pnpm/workspace.read-manifest": "^1000.1.1",
+    "@qingshaner/utility-server": "^0.2.0",
+    "@qingshaner/utility-shared": "^0.2.0",
+    "citty": "^0.1.6",
+    "consola": "^3.4.0",
+    "jsr": "^0.13.4",
+    "package-manager-detector": "^1.0.0",
+    "valibot": "1.0.0-rc.3"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "^2.28.1",
@@ -44,7 +62,7 @@
     "@types/node": "^22.13.10",
     "@vitest/coverage-v8": "^3.0.8",
     "eslint": "^9.22.0",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^15.5.0",
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.8.2",
     "vite": "^6.2.1",
@@ -52,7 +70,11 @@
     "vitest": "^3.0.8"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild", "simple-git-hooks"],
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "esbuild",
+      "simple-git-hooks"
+    ],
     "overrides": {
       "vite-plugin-dts>@microsoft/api-extractor": "^7.51.1"
     }

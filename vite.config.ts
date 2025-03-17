@@ -12,20 +12,24 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
+        cli: resolve(ROOT, 'src/cli.ts'),
         index: resolve(ROOT, 'src/index.ts')
       },
       formats: ['es']
     },
     minify: false,
     rollupOptions: {
-      external: Object.keys((pkgJSON as { dependencies?: Record<string, string> }).dependencies ?? {})
+      external: [
+        /^node:/,
+        ...Object.keys((pkgJSON as { dependencies?: Record<string, RegExp | string> }).dependencies ?? {})
+      ]
     }
   },
   plugins: [
     dts({
       copyDtsFiles: true,
       rollupTypes: true,
-      tsconfigPath: resolve(ROOT, '.config/tsconfig.app.json')
+      tsconfigPath: resolve(ROOT, 'tsconfig.json')
     })
   ],
   resolve: {
