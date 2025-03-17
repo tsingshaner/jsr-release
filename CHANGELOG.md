@@ -1,5 +1,11 @@
 # @qingshaner/jsr-release
 
+## 0.1.2
+
+### Patch Changes
+
+- 74bd8f7: Fix ci token error
+
 ## 0.1.1
 
 ### Patch Changes
