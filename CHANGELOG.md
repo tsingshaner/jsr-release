@@ -1,5 +1,12 @@
 # @qingshaner/jsr-release
 
+## 0.1.3
+
+### Patch Changes
+
+- 21a2e9d: Ensure download deno before pubish
+- dade644: Update docs
+
 ## 0.1.2
 
 ### Patch Changes
