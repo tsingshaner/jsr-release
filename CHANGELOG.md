@@ -1,5 +1,11 @@
 # @qingshaner/jsr-release
 
+## 0.1.4
+
+### Patch Changes
+
+- fc7cb29: Fix jsr patch error
+
 ## 0.1.3
 
 ### Patch Changes
