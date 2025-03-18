@@ -37,6 +37,10 @@ jobs:
         publish: pnpm changeset-publish
         version: pnpm changeset-version
 
+
+       - name: Publish to jsr.io
+         if: steps.changesets.outputs.published == 'true'
+         run: pnpx @qingshaner/jsr-release publish --changesetReleases='${{ steps.changesets.outputs.publishedPackages }}'
 ```
 
 `package.json`
@@ -44,7 +48,7 @@ jobs:
 {
   "scripts": {
     "changeset-version": "changeset version && pnpx @qingshaner/jsr-release --allowDirty version --sync",
-    "changeset-publish": "changeset publish && pnpx @qingshaner/jsr-release publish"
+    "changeset-publish": "changeset publish"
   }
 }
 

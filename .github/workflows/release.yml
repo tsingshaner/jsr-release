@@ -46,16 +46,14 @@ jobs:
           commit: 'chore(release): update release & CHANGELOG.md'
           title: '📦 Update Packages Version'
           publish: pnpm changeset-publish
-          version: |
-            pnpm changeset-version
-            node ./bin/cli.mjs --allowDirty version --sync
+          version: pnpm changeset-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to JSR
         if: steps.changesets.outputs.published == 'true'
-        run: node ./bin/cli.mjs publish
+        run: pnpm dev publish --changesetReleases='${{ steps.changesets.outputs.publishedPackages }}'
 
       - name: CNPM sync the latest published package
         if: steps.changesets.outputs.published == 'true'

@@ -33,7 +33,8 @@
   },
   "scripts": {
     "build": "vite build",
-    "changeset-version": "changeset version",
+    "dev": "node ./bin/cli.mjs",
+    "changeset-version": "changeset version && pnpm dev --allowDirty version --sync",
     "changeset-publish": "changeset publish",
     "format": "biome format . --write",
     "lint": "biome lint . --write && eslint . --fix",
