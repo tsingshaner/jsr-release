@@ -1,4 +1,4 @@
-import { runMain, type SubCommandsDef } from 'citty'
+import { runMain } from 'citty'
 import consola from 'consola'
 
 import packageJSON from '../package.json' with { type: 'json' }

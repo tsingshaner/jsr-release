@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import { defineCommand } from 'citty'
-import { publish } from 'jsr'
+import { getOrDownloadBinPath, publish } from 'jsr'
 
 import type { AnyFunc } from '@qingshaner/utility-shared'
 
@@ -25,7 +25,10 @@ export default defineCommand({
   setup: packagesSetup,
 
   async run(ctx) {
-    const binFolder = join(import.meta.dirname, '..', '.download')
+    // init deno bin path
+    const canary = process.env.DENO_BIN_CANARY !== undefined
+    const binFolder = await getOrDownloadBinPath(join(import.meta.dirname, '..', '.download'), canary)
+
     const { packages, pnpmWorkspaceManifest } = ctx.data as ProjectManifests
     const catalogs = pnpmWorkspaceManifest?.catalogs ?? {}
     const changesetReleases = JSON.parse((ctx.args.changesetReleases as string) ?? '[]') as Record<'name', string>[]
@@ -49,7 +52,7 @@ export default defineCommand({
 
         await publish(project.rootDirRealPath, {
           binFolder,
-          canary: process.env.DENO_BIN_CANARY !== undefined,
+          canary,
           pkgJsonPath: packageJSONPath,
           publishArgs: ['--allow-dirty', ...ctx.args._]
         })

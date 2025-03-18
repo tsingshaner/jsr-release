@@ -7,6 +7,11 @@ settings:
 overrides:
   vite-plugin-dts>@microsoft/api-extractor: ^7.51.1
 
+patchedDependencies:
+  jsr:
+    hash: da2fae4ca3d0642cf50e942eac5ae250c3a6323abcb2826a150c646c0335a6f2
+    path: patches/jsr.patch
+
 importers:
 
   .:
@@ -37,7 +42,7 @@ importers:
         version: 3.4.0
       jsr:
         specifier: ^0.13.4
-        version: 0.13.4
+        version: 0.13.4(patch_hash=da2fae4ca3d0642cf50e942eac5ae250c3a6323abcb2826a150c646c0335a6f2)
       package-manager-detector:
         specifier: ^1.0.0
         version: 1.0.0
@@ -6438,7 +6443,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  jsr@0.13.4:
+  jsr@0.13.4(patch_hash=da2fae4ca3d0642cf50e942eac5ae250c3a6323abcb2826a150c646c0335a6f2):
     dependencies:
       kolorist: 1.8.0
       node-stream-zip: 1.15.0

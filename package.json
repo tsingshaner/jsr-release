@@ -72,6 +72,9 @@
     "onlyBuiltDependencies": ["@biomejs/biome", "esbuild", "simple-git-hooks"],
     "overrides": {
       "vite-plugin-dts>@microsoft/api-extractor": "^7.51.1"
+    },
+    "patchedDependencies": {
+      "jsr": "patches/jsr.patch"
     }
   },
   "simple-git-hooks": {
@@ -83,6 +86,6 @@
       "pnpm biome lint --write",
       "pnpm eslint --cache --fix"
     ],
-    "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome format --write"
+    "*.{js,json,jsx,cjs,mjs,ts,tsx,cts,mts}": "pnpm biome format --write"
   }
 }

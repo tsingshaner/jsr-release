@@ -1,0 +1,100 @@
+diff --git a/dist/commands.d.ts b/dist/commands.d.ts
+index 68658b178729c92b2682d8b66835ecb94e0ddfdc..d29ff8af5f77da0997eae0cf4f3f660b232314c5 100644
+--- a/dist/commands.d.ts
++++ b/dist/commands.d.ts
+@@ -19,3 +19,4 @@ export interface PublishOptions {
+ export declare function publish(cwd: string, options: PublishOptions): Promise<void>;
+ export declare function runScript(cwd: string, script: string, options: BaseOptions): Promise<void>;
+ export declare function showPackageInfo(raw: string): Promise<void>;
++export declare function getOrDownloadBinPath(binFolder: string, canary: boolean): Promise<string>;
+diff --git a/dist/commands.js b/dist/commands.js
+index 3b84435729ceed85ff87d040ae57643e59339e0c..d2e14e3e0e29dd469d3869557d9e9fd03b4cd01a 100644
+--- a/dist/commands.js
++++ b/dist/commands.js
+@@ -133,7 +133,7 @@ async function remove(packages, options) {
+ exports.remove = remove;
+ async function getOrDownloadBinPath(binFolder, canary) {
+     const info = await (0, download_1.getDenoDownloadUrl)(canary);
+-    const binPath = path.join(binFolder, info.version, 
++    const binPath = path.join(binFolder, info.version,
+     // Ensure each binary has their own folder to avoid overwriting it
+     // in case jsr gets added to a project as a dependency where
+     // developers use multiple OSes
+@@ -154,6 +154,7 @@ async function getOrDownloadBinPath(binFolder, canary) {
+     }
+     return binPath;
+ }
++module.exports.getOrDownloadBinPath = getOrDownloadBinPath;
+ async function publish(cwd, options) {
+     const binPath = process.env.DENO_BIN_PATH ??
+         await getOrDownloadBinPath(options.binFolder, options.canary);
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index a79b792dbc4f0fa70754f0a78cb795878ec4e1a4..5a7c1a449ad24c3add221b5ed7b7fd646e5e3f8a 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,2 +1,2 @@
+-export { install, type InstallOptions, publish, type PublishOptions, remove, } from "./commands";
++export { install, type InstallOptions, publish, type PublishOptions, remove, getOrDownloadBinPath } from "./commands";
+ export { JsrPackage, JsrPackageNameError } from "./utils";
+diff --git a/dist/index.js b/dist/index.js
+index 16ffecba6bf3ed53e77b49fefc023c1927daad78..003ab22db5ef8847fcfe7b5679c9492bee0b2c28 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -6,6 +6,7 @@ var commands_1 = require("./commands");
+ Object.defineProperty(exports, "install", { enumerable: true, get: function () { return commands_1.install; } });
+ Object.defineProperty(exports, "publish", { enumerable: true, get: function () { return commands_1.publish; } });
+ Object.defineProperty(exports, "remove", { enumerable: true, get: function () { return commands_1.remove; } });
++Object.defineProperty(exports, "getOrDownloadBinPath", { enumerable: true, get: function () { return commands_1.getOrDownloadBinPath; } });
+ var utils_1 = require("./utils");
+ Object.defineProperty(exports, "JsrPackage", { enumerable: true, get: function () { return utils_1.JsrPackage; } });
+ Object.defineProperty(exports, "JsrPackageNameError", { enumerable: true, get: function () { return utils_1.JsrPackageNameError; } });
+diff --git a/dist-esm/commands.d.ts b/dist-esm/commands.d.ts
+index 68658b178729c92b2682d8b66835ecb94e0ddfdc..d29ff8af5f77da0997eae0cf4f3f660b232314c5 100644
+--- a/dist-esm/commands.d.ts
++++ b/dist-esm/commands.d.ts
+@@ -19,3 +19,4 @@ export interface PublishOptions {
+ export declare function publish(cwd: string, options: PublishOptions): Promise<void>;
+ export declare function runScript(cwd: string, script: string, options: BaseOptions): Promise<void>;
+ export declare function showPackageInfo(raw: string): Promise<void>;
++export declare function getOrDownloadBinPath(binFolder: string, canary: boolean): Promise<string>;
+diff --git a/dist-esm/commands.js b/dist-esm/commands.js
+index 3b84435729ceed85ff87d040ae57643e59339e0c..d2e14e3e0e29dd469d3869557d9e9fd03b4cd01a 100644
+--- a/dist-esm/commands.js
++++ b/dist-esm/commands.js
+@@ -133,7 +133,7 @@ async function remove(packages, options) {
+ exports.remove = remove;
+ async function getOrDownloadBinPath(binFolder, canary) {
+     const info = await (0, download_1.getDenoDownloadUrl)(canary);
+-    const binPath = path.join(binFolder, info.version, 
++    const binPath = path.join(binFolder, info.version,
+     // Ensure each binary has their own folder to avoid overwriting it
+     // in case jsr gets added to a project as a dependency where
+     // developers use multiple OSes
+@@ -154,6 +154,7 @@ async function getOrDownloadBinPath(binFolder, canary) {
+     }
+     return binPath;
+ }
++module.exports.getOrDownloadBinPath = getOrDownloadBinPath;
+ async function publish(cwd, options) {
+     const binPath = process.env.DENO_BIN_PATH ??
+         await getOrDownloadBinPath(options.binFolder, options.canary);
+diff --git a/dist-esm/index.d.ts b/dist-esm/index.d.ts
+index a79b792dbc4f0fa70754f0a78cb795878ec4e1a4..5a7c1a449ad24c3add221b5ed7b7fd646e5e3f8a 100644
+--- a/dist-esm/index.d.ts
++++ b/dist-esm/index.d.ts
+@@ -1,2 +1,2 @@
+-export { install, type InstallOptions, publish, type PublishOptions, remove, } from "./commands";
++export { install, type InstallOptions, publish, type PublishOptions, remove, getOrDownloadBinPath } from "./commands";
+ export { JsrPackage, JsrPackageNameError } from "./utils";
+diff --git a/dist-esm/index.js b/dist-esm/index.js
+index 16ffecba6bf3ed53e77b49fefc023c1927daad78..003ab22db5ef8847fcfe7b5679c9492bee0b2c28 100644
+--- a/dist-esm/index.js
++++ b/dist-esm/index.js
+@@ -6,6 +6,7 @@ var commands_1 = require("./commands");
+ Object.defineProperty(exports, "install", { enumerable: true, get: function () { return commands_1.install; } });
+ Object.defineProperty(exports, "publish", { enumerable: true, get: function () { return commands_1.publish; } });
+ Object.defineProperty(exports, "remove", { enumerable: true, get: function () { return commands_1.remove; } });
++Object.defineProperty(exports, "getOrDownloadBinPath", { enumerable: true, get: function () { return commands_1.getOrDownloadBinPath; } });
+ var utils_1 = require("./utils");
+ Object.defineProperty(exports, "JsrPackage", { enumerable: true, get: function () { return utils_1.JsrPackage; } });
+ Object.defineProperty(exports, "JsrPackageNameError", { enumerable: true, get: function () { return utils_1.JsrPackageNameError; } });
