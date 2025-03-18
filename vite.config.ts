@@ -21,6 +21,12 @@ export default defineConfig({
     rollupOptions: {
       external: [
         /^node:/,
+        'fs',
+        'util',
+        'path',
+        'events',
+        'zlib',
+        'stream',
         ...Object.keys((pkgJSON as { dependencies?: Record<string, RegExp | string> }).dependencies ?? {})
       ]
     }

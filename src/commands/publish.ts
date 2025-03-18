@@ -27,7 +27,8 @@ export default defineCommand({
   async run(ctx) {
     // init deno bin path
     const canary = process.env.DENO_BIN_CANARY !== undefined
-    const binFolder = await getOrDownloadBinPath(join(import.meta.dirname, '..', '.download'), canary)
+    const binFolder = join(import.meta.dirname, '..', '.download')
+    void (await getOrDownloadBinPath(binFolder, canary))
 
     const { packages, pnpmWorkspaceManifest } = ctx.data as ProjectManifests
     const catalogs = pnpmWorkspaceManifest?.catalogs ?? {}
